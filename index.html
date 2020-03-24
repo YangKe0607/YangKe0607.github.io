@@ -182,43 +182,11 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-<h3 id="事务的基本概念"><a href="#事务的基本概念" class="headerlink" title="事务的基本概念"></a>事务的基本概念</h3><h6 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h6><p>&emsp;&emsp;事务是用户定义的一个数据库操作序列，是一个不可分割的工作单位。（数据库事务是构成单一逻辑工作单元的操作集合）</p>
-<p>&emsp;&emsp;<strong>关于事务的定义的解释</strong>：</p>
-<ul>
-<li>1.数据库事务可以包含一个或多个数据库操作,但这些操作构成一个逻辑上的整体。</li>
-<li>2.构成逻辑整体的这些数据库操作,要么全部执行成功,要么全部不执行。</li>
-<li>3.构成事务的所有操作,要么全都对数据库产生影响,要么全都不产生影响,即不管事务是否执行成功,数据库总能保持一致性状态。</li>
-<li>4.以上即使在数据库出现故障以及并发事务存在的情况下依然成立。</li>
-</ul>
-<h6 id="数据库事务定义语句"><a href="#数据库事务定义语句" class="headerlink" title="数据库事务定义语句"></a>数据库事务定义语句</h6><ul>
-<li><strong>BEGIN TRANSACTION</strong>  &emsp;<strong>事务的开始</strong></li>
-<li><strong>COMMIT</strong> &emsp; <strong>提交</strong>&emsp;即提交事务的所有操作。&emsp;将事务中所有对数据库的更新写回到磁盘上的物理数据库中。事务正常结束。</li>
-<li><strong>ROLLBACK</strong> &emsp;<strong>回滚</strong>&emsp;事务运行过程中发生某种故障，将事务中对数据库的所有已完成的操作全部撤销，回滚到事务开始时的状态。</li>
-</ul>
-<h6 id="事务的ACID特性-（ACID-properties）"><a href="#事务的ACID特性-（ACID-properties）" class="headerlink" title="事务的ACID特性 （ACID properties）"></a>事务的ACID特性 （ACID properties）</h6><ul>
-<li><strong>原子性（Atomicity）</strong></li>
-</ul>
-<p>&emsp;&emsp;事务中的所有操作作为一个整体像原子一样不可分割，要么全部成功,要么全部失败。</p>
-<ul>
-<li><strong>一致性（Consistency）</strong></li>
-</ul>
-<p>&emsp;&emsp;事务的执行结果必须使数据库从一个一致性状态到另一个一致性状态。</p>
-<p>&emsp;&emsp;一致性状态是指:</p>
-<p>&emsp;&emsp;1.系统的状态满足数据的完整性约束(主码,参照完整性,check约束等)</p>
-<p>&emsp;&emsp;2.系统的状态反应数据库本应描述的现实世界的真实状态,比如转账前后两个账户的金额总和应该保持不变。</p>
-<ul>
-<li><strong>隔离性（Isolation）</strong></li>
-</ul>
-<p>&emsp;&emsp;一个事务的执行不能被其他事务干扰</p>
-<ul>
-<li><strong>持续性（Durability）</strong>（永久性）</li>
-</ul>
-<p>&emsp;&emsp;事务一旦提交,其对数据库的更新就是永久的。</p>
-<p>&emsp;&emsp;<strong>破坏事务ACID特性的因素</strong></p>
-<p>&emsp;&emsp;&emsp;&emsp;1、多个事务并行运行，不同事务的交叉操作执行</p>
-<p>&emsp;&emsp;&emsp;&emsp;2、事务运行过程中被强行停止</p>
-
+        <hr>
+<h3 id="事务的基本概念"><a href="#事务的基本概念" class="headerlink" title="事务的基本概念"></a>事务的基本概念</h3>
+        
+          <a class="article-more-a" href="/2020/03/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA%202/#more">more >></a>
+        
       
 
       
@@ -435,7 +403,7 @@ var _hmt = _hmt || [];
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA1/">数据库系统概论1</a>
+      <a class="article-title" href="/2020/02/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA1/">数据库系统概论——绪论</a>
     </h1>
   
 
@@ -479,84 +447,6 @@ var _hmt = _hmt || [];
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/02/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-我的第一篇博客文章" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/17/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">我的第一篇博客文章</a>
-    </h1>
-  
-
-        
-        <a href="/2020/02/17/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="archive-article-date">
-  	<time datetime="2020-02-17T04:49:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p>
-<hr>
-<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>内容</p>
-<hr>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://www.ssssss.cn" target="_blank" rel="noopener">www.ssssss.cn</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/17/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">展开全文 >></a>
         </p>
       
 
@@ -680,10 +570,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据库系统概论</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
               <li class="article-tag-list-item">
