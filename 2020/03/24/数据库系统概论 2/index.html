@@ -16,7 +16,7 @@
 <meta property="og:description" content="事务的基本概念">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-24T03:19:35.000Z">
-<meta property="article:modified_time" content="2020-03-24T04:12:42.622Z">
+<meta property="article:modified_time" content="2020-03-25T05:09:15.809Z">
 <meta property="article:author" content="YangKe">
 <meta property="article:tag" content="数据库">
 <meta property="article:tag" content="数据库系统概论">
@@ -223,7 +223,21 @@ var _hmt = _hmt || [];
 <p>&emsp;&emsp;<strong>破坏事务ACID特性的因素</strong></p>
 <p>&emsp;&emsp;&emsp;&emsp;1、多个事务并行运行，不同事务的交叉操作执行</p>
 <p>&emsp;&emsp;&emsp;&emsp;2、事务运行过程中被强行停止</p>
-
+<h3 id="故障的种类"><a href="#故障的种类" class="headerlink" title="故障的种类"></a>故障的种类</h3><h6 id="1-事务内部的故障"><a href="#1-事务内部的故障" class="headerlink" title="1.事务内部的故障"></a>1.事务内部的故障</h6><p>&emsp;事务的内部故障有的可以通过程序本身发现，有的是非预期的。</p>
+<p>&emsp;<strong>例</strong>：银行转账事务，把一笔金额从账户甲转给账户乙</p>
+<pre><code>BEGIN TRANSACTION
+    读账户甲的余额 BALANCE;
+    BALANCE = BALANCE - AMOUNT      /*AMOUNT 为转账金额*/
+    IF（BALANCE &lt; 0）THEN
+        {打印‘余额不足，不能转账’；
+         ROLLBACK;}
+     ELSE
+        {读乙账户余额 BALANCE1
+         BALANCE1 = BALANCE1 + AMOUNT;
+         写回 BALANCE1
+         COMMIT;}</code></pre><h6 id="2-系统故障"><a href="#2-系统故障" class="headerlink" title="2.系统故障"></a>2.系统故障</h6><p>&emsp;&emsp;系统故障指造成系统停止运转的任何事件，使得系统要重新启动。</p>
+<h6 id="3-介质故障"><a href="#3-介质故障" class="headerlink" title="3.介质故障"></a>3.介质故障</h6><p>&emsp;&emsp;介质故障称为<strong>硬故障</strong>，如：磁盘损坏、磁头碰撞、瞬时强磁干扰等。</p>
+<h6 id="4-计算机病毒"><a href="#4-计算机病毒" class="headerlink" title="4.计算机病毒"></a>4.计算机病毒</h6>
       
 
       
@@ -430,15 +444,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">复试上机</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据库系统概论</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">复试上机</a>
               </li>
              
               <li class="article-tag-list-item">
