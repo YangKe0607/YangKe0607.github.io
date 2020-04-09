@@ -16,7 +16,7 @@
 <meta property="og:description" content="string&amp;emsp;&amp;emsp;hash&amp;emsp;&amp;emsp;list&amp;emsp;&amp;emsp;set&amp;emsp;&amp;emsp;sorted_set">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-29T07:07:35.000Z">
-<meta property="article:modified_time" content="2020-04-04T01:51:26.236Z">
+<meta property="article:modified_time" content="2020-04-09T05:40:28.981Z">
 <meta property="article:author" content="YangKe">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
@@ -273,6 +273,98 @@ var _hmt = _hmt || [];
 <p>&emsp;&emsp;&emsp;&emsp; 表名：&emsp;主键名：&emsp;主键值：&emsp; 字段名</p>
 <p>&emsp;eg1:&emsp;order：&emsp; id：&emsp;&emsp; 294375：&emsp;name</p>
 <p>&emsp;eg2:&emsp;news： &emsp; id：&emsp;&emsp; 291245：&emsp;title</p>
+<h4 id="hash-类型"><a href="#hash-类型" class="headerlink" title="hash 类型"></a>hash 类型</h4><p><strong>存储的困惑</strong></p>
+<p>&emsp;&emsp;对象类数据的存储如果具有较频繁的更新需求操作会显得笨重</p>
+<ul>
+<li>新的存储需求：对一系列存储的数据进行编组，方便管理，典型应用存储对象信息</li>
+<li>需要的存储结构：一个存储空间保存多个键值对数据</li>
+<li>hash类型：底层使用哈希表结构实现数据存储</li>
+</ul>
+<h5 id="hash类型的基本操作"><a href="#hash类型的基本操作" class="headerlink" title="hash类型的基本操作"></a>hash类型的基本操作</h5><ul>
+<li>添加/修改数据</li>
+</ul>
+<p>&emsp;&emsp;&emsp;&emsp; <strong>hset</strong> key field value</p>
+<ul>
+<li>添加/修改多个数据</li>
+</ul>
+<p>&emsp;&emsp;&emsp;&emsp; <strong>hmset</strong> key field1 value1 field2 value2…</p>
+<ul>
+<li>获取数据</li>
+</ul>
+<p>&emsp;&emsp;&emsp;&emsp;<strong>hget</strong> key field </p>
+<p>&emsp;&emsp;&emsp;&emsp;<strong>hgetall</strong> key field </p>
+<ul>
+<li>获取多个数据</li>
+</ul>
+<p>&emsp;&emsp;&emsp;&emsp;<strong>hmget</strong> key field1 field2 … </p>
+<ul>
+<li>删除数据 &emsp;&emsp;</li>
+</ul>
+<p>&emsp;&emsp;&emsp;&emsp; <strong>hdel</strong> key field1 [field2] </p>
+<ul>
+<li>获取哈希表中字段的数量</li>
+</ul>
+<p>&emsp;&emsp;&emsp;&emsp; <strong>hlen</strong> key</p>
+<ul>
+<li>获取哈希表中是否存在指定的字段</li>
+</ul>
+<p>&emsp;&emsp;&emsp;&emsp; <strong>hexists</strong> key field</p>
+<ul>
+<li>获取哈希表中所有的字段名或字段值</li>
+</ul>
+<p>&emsp;&emsp;&emsp;&emsp; <strong>hkeys</strong> key</p>
+<p>&emsp;&emsp;&emsp;&emsp; <strong>hvals</strong> key</p>
+<ul>
+<li>设置指定字段的数值数据增加指定范围的值</li>
+</ul>
+<p>&emsp;&emsp;&emsp;&emsp; <strong>hincrby</strong> key field increment</p>
+<p>&emsp;&emsp;&emsp;&emsp; <strong>hincrbyfloat</strong> key field increment</p>
+<h5 id="hash类型数据操作的注意事项"><a href="#hash类型数据操作的注意事项" class="headerlink" title="hash类型数据操作的注意事项"></a>hash类型数据操作的注意事项</h5><ul>
+<li>hash类型下的value只能存储字符串，不允许存储其他数据类型，不存在嵌套现象。如果数据未获取到，对应的值为（nil）</li>
+<li>每个hash可以存储 2³²-1 个键值对</li>
+<li>hash类型十分贴近对象的数据存储形式，并且可以灵活添加删除对象属性。但hash设计的初衷不是为了存储大量对象而设计的，切记不可滥用，更不可以将hash作为对象列表使用</li>
+<li>hgetall操作可以获取全部属性，如果内部field过多，遍历整体数据效率就会低，有可能成为数据访问瓶颈</li>
+</ul>
+<h6 id="String-类型应用场景"><a href="#String-类型应用场景" class="headerlink" title="String 类型应用场景"></a>String 类型应用场景</h6><p><strong>业务场景</strong></p>
+<p>&emsp;&emsp;电商网站购物车设计与实现</p>
+<p><strong>业务分析</strong></p>
+<ul>
+<li>进分析购物车的redis存储模型</li>
+</ul>
+<p>&emsp;&emsp;&emsp;&emsp;添加、浏览、更改数量、删除、清空</p>
+<ul>
+<li>购物车与数据库间持久化同步（不讨论）</li>
+<li>购物车于订单间关系（不讨论）</li>
+</ul>
+<p>&emsp;&emsp; 提交购物车：读取数据生成订单<br>&emsp;&emsp; 商家临时价格调整：隶属于订单级别</p>
+<ul>
+<li>未登陆用户购物车信息存储（不讨论）</li>
+</ul>
+<p>&emsp;&emsp; cookie存储</p>
+<p><strong>解决方案</strong></p>
+<ul>
+<li>以客户id作为key，每位客户创建一个hash存储结构存储对应的购物车信息</li>
+<li>将商品编号作为field，购买数量作为value进行存储</li>
+<li>添加商品：追加全新的field与value</li>
+<li>浏览：遍历hash</li>
+<li>更改数量：自增/自减，设置value值</li>
+<li>删除商品：删除field</li>
+<li>清空：删除key</li>
+</ul>
+<p><strong>当前设计是否加速了购物车的呈现</strong></p>
+<p>&emsp;&emsp;当前仅仅是将数据存储到了redis，并没有起到加速的作用，商品信息还需要二次查询数据库</p>
+<ul>
+<li>每条购物车中的商品记录保存成两条field</li>
+<li>field1专用于保存购买数量</li>
+</ul>
+<p>&emsp;&emsp;命名格式：商品id：nums<br>&emsp;&emsp;保存数据：数值</p>
+<ul>
+<li>field2专用于保存购物车中显示的信息，包含文字描述，图片地址，所属商家信息等</li>
+</ul>
+<p>&emsp;&emsp;命名格式： 商品id：info<br>&emsp;&emsp;保存数据： json<br>——–&gt;独立hash</p>
+<ul>
+<li><strong>hsetnx</strong> key field value</li>
+</ul>
 
       
 
